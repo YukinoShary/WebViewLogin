@@ -30,6 +30,7 @@ namespace WebViewTest
             filter.UseProxy = true;
             webView.Width = width;
             webView.Height = height;
+            appWindow.RequestSize(new Windows.Foundation.Size(width, height));
             webView.NavigationStarting += WebView_NavigationStarting;
             webView.ScriptNotify += WebView_ScriptNotify;
         }
