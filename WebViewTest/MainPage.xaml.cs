@@ -35,7 +35,7 @@ namespace WebViewTest
         }
         public async Task TestMethod()
         {
-            WebViewLogin wvl = new WebViewLogin("https://www.pixiv.net/", "https://accounts.pixiv.net/login");
+            WebViewLogin wvl = new WebViewLogin("https://accounts.pixiv.net/login","https://www.pixiv.net/");
             wvl.ClearCookies();//若不提前清除，可能会保留有之前的cookie而直接登录成功
             wvl.Method += SetCookieText;//将WebViewLogin类的委托对象绑定实际的传值方法
             await wvl.ShowWebView(1000,800);
