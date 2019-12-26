@@ -15,8 +15,8 @@ namespace WebViewTest
 {
     class WebViewLogin
     {
-        public string loginUri { get; set; }
-        public string targetUri { get; set; }
+        private string loginUri;
+        private string targetUri;
         public delegate void OutputCookie(string str);
         public OutputCookie Method;//需要在调用方实现此委托方法，以实现cookie的赋值
 
@@ -25,19 +25,21 @@ namespace WebViewTest
         private AppWindow appWindow;
         private HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
 
-        public WebViewLogin(int width,int height)
+        public WebViewLogin(string loginUri,string targetUri)
         {
             filter.UseProxy = true;
-            webView.Width = width;
-            webView.Height = height;
-            appWindow.RequestSize(new Windows.Foundation.Size(width, height));
+            this.loginUri = loginUri;
+            this.targetUri = targetUri;
             webView.NavigationStarting += WebView_NavigationStarting;
             webView.ScriptNotify += WebView_ScriptNotify;
         }
 
-        public async Task ShowWebView()
+        public async Task ShowWebView(int width,int height)
         {
             appWindow = await AppWindow.TryCreateAsync();
+            webView.Width = width;
+            webView.Height = height;
+            appWindow.RequestSize(new Windows.Foundation.Size(width, height));
             ElementCompositionPreview.SetAppWindowContent(appWindow, webView);
 
             httpRequestMessage.Method = HttpMethod.Get;
